@@ -422,7 +422,7 @@ else: #high res display
 	#Inky Clean
 	inky = Inky()
 	colors = ['Black', 'White', 'Green', 'Blue', 'Red', 'Yellow', 'Orange']
-	color = white
+	color = 'WHITE'
 
 	#for _ in range(2):
 	#	for y in range(inky.height - 1):
