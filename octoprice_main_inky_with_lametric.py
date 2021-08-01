@@ -547,7 +547,7 @@ else: #high res display
 # render the actual image onto the display
 #inkyphat.set_rotation(180)
 #flipped = img.rotation(180)
-for color in range(7):
+for color in range(1):
     print("Color: {}".format(colors[color]))
 for y in range(inky.height):
         for x in range(inky.width):
