@@ -434,8 +434,8 @@ else: #high res display
 #!/usr/bin/env python3
 
 
-	inky_display.h_flip = True
-	inky_display.v_flip = True
+	inky_display.h_flip = False
+	inky_display.v_flip = False
 	background = Image.open("BCKG.jpg")
 	font = ImageFont.truetype(FredokaOne, 144)
 	message = "{0:.1f}".format(current_price) + "p"
