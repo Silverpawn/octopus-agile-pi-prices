@@ -426,8 +426,8 @@ else: #high res display
 		for y in range(inky.height - 1):
 			for x in range(inky.width - 1):
 				inky.set_pixel(x, y, CLEAN)
-    inky.show()
-    time.sleep(1.0)
+				inky.show()
+				time.sleep(1.0)
 
 	inky_display.h_flip = False
 	inky_display.v_flip = False
