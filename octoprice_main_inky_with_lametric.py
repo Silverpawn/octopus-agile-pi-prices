@@ -21,12 +21,27 @@ from urllib.request import pathname2url
 import argparse
 from argparse import RawTextHelpFormatter
 import requests
+from inky.inky_uc8159 import Inky, CLEAN
 
 ##  -- Detect display type automatically
 try:
     inky_display = auto(ask_user=False, verbose=True)
 except TypeError:
     raise TypeError("You need to update the Inky library to >= v1.1.0")
+
+#Inky Clean
+inky = Inky()
+
+for _ in range(2):
+    for y in range(inky.height - 1):
+        for x in range(inky.width - 1):
+            inky.set_pixel(x, y, CLEAN)
+
+    inky.show()
+    time.sleep(1.0)
+inky_display.set_border(inky_display.WHITE)
+img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
+draw = ImageDraw.Draw(img)
 
 try:
     # connect to the database in rw mode so we can catch the error if it doesn't exist
@@ -418,6 +433,9 @@ elif (inky_display.WIDTH == 400): #med res display
 else: #high res display
 #!/usr/bin/env python3
 
+
+	inky_display.h_flip = True
+	inky_display.v_flip = True
 	background = Image.open("BCKG.jpg")
 	font = ImageFont.truetype(FredokaOne, 144)
 	message = "{0:.1f}".format(current_price) + "p"
