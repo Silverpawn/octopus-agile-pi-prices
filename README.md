@@ -85,14 +85,20 @@ Also if you're into home automation or random tinkering then subscribe to my you
 
 # Updates from Silverpawn
 I made some modifications to the original code
-- Firstly I made a version for an inky impression - I still have to solve the back background but the rest works - this version is called xxxx
+- Firstly I made a version for an inky impression - I still have to solve the back background but the rest works - this version is called 
+```
+octoprice_main_inkyimpression.py
+```
 - Secondly I modified the inky-phat version to include a json export for sending the octopus data to a lametric time using the my data app -> https://help.lametric.com/support/solutions/articles/6000225467-my-data-diy 
 - to do this I used a free online json storage  with ExtendsClass -> https://extendsclass.com/json-storage.html this requires a secuirity key so now this is now added as the argument --key k
 - The name of this new file is 
 ```
 octoprice_main_inkyphat_with_lametric.py
 ```
-- Finally I am planning to merge both versions to make a single application portable to all types of inky phat the name of this version is yyy
+- Finally I am planning to merge both versions to make a single application portable to all types of inky phat the name of this version is
+```
+yyy
+```
 
 # Crontab-e update for new version
 ```
