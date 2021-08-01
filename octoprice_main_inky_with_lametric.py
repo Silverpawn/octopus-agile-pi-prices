@@ -548,6 +548,9 @@ else: #high res display
 # render the actual image onto the display
 #inkyphat.set_rotation(180)
 #flipped = img.rotation(180)
+for y in range(inky.height):
+        for x in range(inky.width):
+            inky.set_pixel(x, y, color)
 inky.set_border(color)
 inky_display.set_image(img)
 inky_display.show()
