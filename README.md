@@ -57,6 +57,7 @@ In an SSH terminal (putty etc):
   */30 * * * * sleep 20; /usr/bin/python3 octoprice_main_inky.py > /home/pi/cron.log
   05 16 * * * /usr/bin/python3 store_prices.py > /home/pi/cron.log
   ```
+  # Update crontab-e see below if using in a Git Repository
 
   First line says run the script if you reboot, second line says run every half hour (but delay by 20s to avoid time based issues!),     third line is quite important, runs every day at 4:05pm to get the next set of prices. Nothing unusual here. 
 
@@ -88,4 +89,11 @@ I made some modifications to the original code
 - Secondly I modified the inky-phat version to include a json export for sending the octopus data to a lametric time using the my data app -> https://help.lametric.com/support/solutions/articles/6000225467-my-data-diy 
 - to do this I used a free online json storage  with ExtendsClass -> https://extendsclass.com/json-storage.html this requires a secuirity key so now this is now added as the argument --key k
 - The name of this new file is xxxx
-- Finally I am planning to merge both versions to make a single application portable to all types of inky phat
+- Finally I am planning to merge both versions to make a single application portable to all types of inky phat the name of this version is yyy
+
+# Crontab-e update for new version
+```
+  @reboot sleep 10; /usr/bin/python3 octoprice_main_inky.py
+  */30 * * * * sleep 20; /usr/bin/python3 octoprice_main_inky.py > /home/pi/cron.log
+  05 16 * * * /usr/bin/python3 store_prices.py > /home/pi/cron.log
+  ```
