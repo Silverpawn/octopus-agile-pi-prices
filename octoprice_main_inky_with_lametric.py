@@ -29,19 +29,6 @@ try:
 except TypeError:
     raise TypeError("You need to update the Inky library to >= v1.1.0")
 
-#Inky Clean
-inky = Inky()
-
-for _ in range(2):
-    for y in range(inky.height - 1):
-        for x in range(inky.width - 1):
-            inky.set_pixel(x, y, CLEAN)
-
-    inky.show()
-    time.sleep(1.0)
-inky_display.set_border(inky_display.WHITE)
-img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
-draw = ImageDraw.Draw(img)
 
 try:
     # connect to the database in rw mode so we can catch the error if it doesn't exist
@@ -431,7 +418,19 @@ elif (inky_display.WIDTH == 400): #med res display
         draw.text((right_column,101), time_of_cheapest_formatted, inky_display.BLACK, font)
 
 else: #high res display
-#!/usr/bin/env python3
+	#!/usr/bin/env python3
+	#Inky Clean
+	inky = Inky()
+
+	for _ in range(2):
+    	for y in range(inky.height - 1):
+        for x in range(inky.width - 1):
+            inky.set_pixel(x, y, CLEAN)
+
+    	inky.show()
+    	time.sleep(1.0)
+	inky_display.set_border(inky_display.WHITE)
+	img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
 
 
 	inky_display.h_flip = False
