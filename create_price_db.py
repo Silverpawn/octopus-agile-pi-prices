@@ -11,4 +11,3 @@ cursor = conn.cursor()
 cursor.execute('CREATE TABLE prices (year INTEGER, month INTEGER, day INTEGER, hour INTEGER, segment INTEGER, price REAL)')
 conn.commit()
 conn.close()
-
