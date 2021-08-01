@@ -80,3 +80,12 @@ Another NOTE: I tried to make this code **simple** and readable. If you see any 
 If you do appreciate this code and are thinking about joining octopus, I'll leave my referral link here https://share.octopus.energy/rust-heron-863 - We both get £50 which is pretty spectacular. 
 
 Also if you're into home automation or random tinkering then subscribe to my youtube stuff here -> https://www.youtube.com/channel/UCl_uGYJe9KW9fJWBMq1A9kw
+
+
+# Updates from Silverpawn
+I made some modifications to the original code
+- Firstly I made a version for an inky impression - I still have to solve the back background but the rest works - this version is called xxxx
+- Secondly I modified the inky-phat version to include a json export for sending the octopus data to a lametric time using the my data app -> https://help.lametric.com/support/solutions/articles/6000225467-my-data-diy 
+- to do this I used a free online json storage  with ExtendsClass -> https://extendsclass.com/json-storage.html this requires a secuirity key so now this is now added as the argument --key k
+- The name of this new file is xxxx
+- Finally I am planning to merge both versions to make a single application portable to all types of inky phat
