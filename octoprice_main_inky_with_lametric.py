@@ -428,10 +428,14 @@ else: #high res display
 	#			inky.set_pixel(x, y, CLEAN)
 	#			inky.show()
 	#			time.sleep(1.0)
+	for y in range(inky.height - 1):
+    	color = white
+    	for x in range(inky.width - 1):
+        inky.set_pixel(x, y, color
 
-	inky_display.h_flip = False
+	inky_display.h_flip = False		
 	inky_display.v_flip = False
-	background = Image.open("BCKG.jpg")
+	#background = Image.open("BCKG.jpg")
 	font = ImageFont.truetype(FredokaOne, 144)
 	message = "{0:.1f}".format(current_price) + "p"
 	w, h = font.getsize(message)
