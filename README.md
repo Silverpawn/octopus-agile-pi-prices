@@ -97,6 +97,6 @@ octoprice_main_inkyphat_with_lametric.py
 # Crontab-e update for new version
 ```
 @reboot sleep 10 /usr/bin/python3 octoprice_main_inkyphat_with_lametric.py --key "Your security key"
-*/30 * * * * sleep 20 /usr/bin/python3 octoprice_main_inkyphat_with_lametric.py --key "Your security key" /home/pi/octopus-agile-pi-prices/cron.log
+*/30 * * * * sleep 20 /usr/bin/python3 octoprice_main_inkyphat_with_lametric.py --key "Your security key" > /home/pi/octopus-agile-pi-prices/cron.log
 05 16 * * * /usr/bin/python3 store_prices.py --region B  > /home/pi/octopus-agile-pi-prices/cron.log
   ```
