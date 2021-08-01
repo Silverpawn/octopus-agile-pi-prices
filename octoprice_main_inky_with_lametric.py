@@ -421,8 +421,7 @@ else: #high res display
 	#!/usr/bin/env python3
 	#Inky Clean
 	inky = Inky()
-	colors = ['Black', 'White', 'Green', 'Blue', 'Red', 'Yellow', 'Orange']
-	color = 'WHITE'
+	colors = ['White']
 
 	#for _ in range(2):
 	#	for y in range(inky.height - 1):
@@ -548,6 +547,8 @@ else: #high res display
 # render the actual image onto the display
 #inkyphat.set_rotation(180)
 #flipped = img.rotation(180)
+for color in range(7):
+    print("Color: {}".format(colors[color]))
 for y in range(inky.height):
         for x in range(inky.width):
             inky.set_pixel(x, y, color)
