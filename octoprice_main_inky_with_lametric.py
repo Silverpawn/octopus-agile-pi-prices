@@ -475,7 +475,7 @@ else: #high res display
 	#chart_base_loc = 85  # location of the bottom of the chart on screen in pixels
 	number_of_vals_to_display = 48 # 36 half hours = 18 hours
 	short_price_list=[x for x in prices if x <= price_limit]
-        maxprice = max(short_price_list)
+	maxprice = max(short_price_list)
 	# plot the graph
 	#lowest_price_next_24h = min(i for i in prices if i > 0)
 	lowest_price_next_24h = min(i for i in prices)
