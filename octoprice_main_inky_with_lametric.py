@@ -43,7 +43,6 @@ except sqlite3.OperationalError as error:
 inky_display.set_border(inky_display.WHITE)
 inky_display.h_flip = True
 inky_display.v_flip = True
-to >= v1.1.0")
 SATURATION = 0.5
 
 
@@ -60,7 +59,7 @@ except sqlite3.OperationalError as error:
 inky_display.set_border(inky_display.WHITE)
 inky_display.h_flip = True
 inky_display.v_flip = True
-iimg = Image.new("RGB", (inky_display.WIDTH, inky_display.HEIGHT),(255,255,255)
+img = Image.new("RGB", (inky_display.WIDTH, inky_display.HEIGHT),(255,255,255))
 draw = ImageDraw.Draw(img)
 
 #set the price threshold and pricelimit
@@ -460,9 +459,9 @@ else: #high res display
 	y = -10
 
 	if (current_price > 14.8):
-		draw.text((x, y), message, inky_display.(255,0,0), font)
+		draw.text((x, y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.(0,0,255), font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	right_column = 400
 
@@ -473,7 +472,7 @@ else: #high res display
 	x = right_column
 	y = 0
 	if (next_price > 14.8):
-		draw.text((x,y), message, inky_display.(255,0,0), font)
+		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.(0,0,255), font)
 
@@ -485,7 +484,7 @@ else: #high res display
 	y = 100
 
 	if (nextp1_price > 14.8):
-		draw.text((x,y), message, inky_display.(255,0,0), font)
+		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.(0,0,255), font)
 
@@ -497,7 +496,7 @@ else: #high res display
 	y = 200
 
 	if (nextp2_price > 14.8):
-		draw.text((x,y), message, inky_display.(255,0,0), font)
+		draw.text((x,y), message, inky_display.RED, font)
 	else:
 		draw.text((x, y), message, inky_display.(0,0,255), font)
 
@@ -524,9 +523,9 @@ else: #high res display
 			scaled_price = prices[i] * pixels_per_h # we're scaling it by the value above
 
 			if prices[i] <= (lowest_price_next_24h + 1):   # if within 1p of the lowest price, display in black
-				ink_color = inky_display.(0,0,255)
+				ink_color = inky_display.BLUE
 			else:
-				ink_color = inky_display.(255,0,0)
+				ink_color = inky_display.RED
 
 			# takes a bit of thought this next bit, draw a rectangle from say x =  2i to 2(i-1) for each plot value
 			# pixels_per_w defines the horizontal scaling factor (2 seems to work)
@@ -540,12 +539,12 @@ else: #high res display
 	# draw the bottom right min price and how many hours that is away
 	font = ImageFont.truetype(FredokaOne, 32)
 	msg = "min:"+"{0:.1f}".format(lowest_price_next_24h) + "p"
-	draw.text((right_column,300), msg, inky_display.(0,0,255), font)
+	draw.text((right_column,300), msg, inky_display.BLUE, font)
 	# we know how many half hours to min price, now figure it out in hours.
 	minterval = (round(prices.index(lowest_price_next_24h)/2))
 	print ("minterval:"+str(minterval))
 	msg = "in:"+str(minterval)+"hrs"
-	draw.text((right_column,350), msg, inky_display.(0,0,255), font)
+	draw.text((right_column,350), msg, inky_display.BLUE,BLUE font)
 
 	# and convert that to an actual time
 	# note that this next time will not give you an exact half hour if you don't run this at an exact half hour eg cron
@@ -558,7 +557,7 @@ else: #high res display
 	print("which is: "+ str(time_of_cheapest.time())[0:5])
 	time_of_cheapest_formatted = "at " + (str(time_of_cheapest.time())[0:5])
 	font = ImageFont.truetype(FredokaOne, 32)
-	draw.text((right_column,400), time_of_cheapest_formatted, inky_display.(0,0,255), font)
+	draw.text((right_column,400), time_of_cheapest_formatted, inky_display.BLUE, font)
 
 	
 # render the actual image onto the display
@@ -569,7 +568,7 @@ else: #high res display
 #for y in range(inky.height):
  #       for x in range(inky.width):
   #          inky.set_pixel(x, y, color)
-inky.set_border(0,0,0)
+inky.set_border(BLACK)
 inky_display.set_image(img, saturation=SATURATION)
 inky_display.show()
 
