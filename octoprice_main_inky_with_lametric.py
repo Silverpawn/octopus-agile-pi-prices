@@ -43,7 +43,23 @@ except sqlite3.OperationalError as error:
 inky_display.set_border(inky_display.WHITE)
 inky_display.h_flip = True
 inky_display.v_flip = True
-img = Image.new("P", (inky_display.WIDTH, inky_display.HEIGHT))
+SATURATION = 0.5
+
+
+try:
+    # connect to the database in rw mode so we can catch the error if it doesn't exist
+    DB_URI = 'file:{}?mode=rw'.format(pathname2url('agileprices.sqlite'))
+    conn = sqlite3.connect(DB_URI, uri=True)
+    cur = conn.cursor()
+    print('Connected to database...')
+except sqlite3.OperationalError as error:
+    # handle missing database case
+    raise SystemExit('Database not found - you need to run store_prices.py first.') from error
+
+inky_display.set_border(inky_display.WHITE)
+inky_display.h_flip = True
+inky_display.v_flip = True
+img = Image.new("RGB", (inky_display.WIDTH, inky_display.HEIGHT),(255,255,255))
 draw = ImageDraw.Draw(img)
 
 #set the price threshold and pricelimit
@@ -421,17 +437,19 @@ else: #high res display
 	#!/usr/bin/env python3
 	#Inky Clean
 	inky = Inky()
+	colors = ['White']
 
-	for _ in range(2):
-		for y in range(inky.height - 1):
-			for x in range(inky.width - 1):
-				inky.set_pixel(x, y, CLEAN)
-				inky.show()
-				time.sleep(1.0)
+	#for _ in range(2):
+	#	for y in range(inky.height - 1):
+	#		for x in range(inky.width - 1):
+	#			inky.set_pixel(x, y, CLEAN)
+	#			inky.show()
+	#			time.sleep(1.0)
+	image = Image.new("RGB", (inky.width, inky.height), (255, 255, 255))
 
-	inky_display.h_flip = False
+	inky_display.h_flip = False		
 	inky_display.v_flip = False
-	background = Image.open("BCKG.jpg")
+	#background = Image.open("BCKG.jpg")
 	font = ImageFont.truetype(FredokaOne, 144)
 	message = "{0:.1f}".format(current_price) + "p"
 	w, h = font.getsize(message)
@@ -443,7 +461,7 @@ else: #high res display
 	if (current_price > 14.8):
 		draw.text((x, y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.YELLOW, font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	right_column = 400
 
@@ -456,7 +474,7 @@ else: #high res display
 	if (next_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.YELLOW, font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	# NEXT
 	message = "3:" + "{0:.1f}".format(nextp1_price) + "p"
@@ -468,7 +486,7 @@ else: #high res display
 	if (nextp1_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.YELLOW, font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	# NEXT
 	message = "4:" + "{0:.1f}".format(nextp2_price) + "p"
@@ -480,7 +498,7 @@ else: #high res display
 	if (nextp2_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.YELLOW, font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	pixels_per_h = 8  # how many pixels 1p is worth
 	pixels_per_w = 8  # how many pixels 1/2 hour is worth
@@ -505,7 +523,7 @@ else: #high res display
 			scaled_price = prices[i] * pixels_per_h # we're scaling it by the value above
 
 			if prices[i] <= (lowest_price_next_24h + 1):   # if within 1p of the lowest price, display in black
-				ink_color = inky_display.YELLOW
+				ink_color = inky_display.BLUE
 			else:
 				ink_color = inky_display.RED
 
@@ -521,12 +539,12 @@ else: #high res display
 	# draw the bottom right min price and how many hours that is away
 	font = ImageFont.truetype(FredokaOne, 32)
 	msg = "min:"+"{0:.1f}".format(lowest_price_next_24h) + "p"
-	draw.text((right_column,300), msg, inky_display.YELLOW, font)
+	draw.text((right_column,300), msg, inky_display.BLUE, font)
 	# we know how many half hours to min price, now figure it out in hours.
 	minterval = (round(prices.index(lowest_price_next_24h)/2))
 	print ("minterval:"+str(minterval))
 	msg = "in:"+str(minterval)+"hrs"
-	draw.text((right_column,350), msg, inky_display.YELLOW, font)
+	draw.text((right_column,350), msg, inky_display.BLUE, font)
 
 	# and convert that to an actual time
 	# note that this next time will not give you an exact half hour if you don't run this at an exact half hour eg cron
@@ -539,13 +557,19 @@ else: #high res display
 	print("which is: "+ str(time_of_cheapest.time())[0:5])
 	time_of_cheapest_formatted = "at " + (str(time_of_cheapest.time())[0:5])
 	font = ImageFont.truetype(FredokaOne, 32)
-	draw.text((right_column,400), time_of_cheapest_formatted, inky_display.YELLOW, font)
+	draw.text((right_column,400), time_of_cheapest_formatted, inky_display.BLUE, font)
 
 	
 # render the actual image onto the display
 #inkyphat.set_rotation(180)
 #flipped = img.rotation(180)
-inky_display.set_image(img)
+#for color in range(1):
+ #   print("Color: {}".format(colors[color]))
+#for y in range(inky.height):
+ #       for x in range(inky.width):
+  #          inky.set_pixel(x, y, color)
+inky.set_border(BLACK)
+inky_display.set_image(img, saturation=SATURATION)
 inky_display.show()
 
 #import requests
