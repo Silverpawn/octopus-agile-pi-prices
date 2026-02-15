@@ -149,17 +149,29 @@ def insert_record(year: int, month: int, day: int, hour: int, segment: int, pric
 
 def remove_old_prices(age: str):
     """Delete old prices from the database, we don't want to display those and we don't want it
-    to grow too big. 'age' must be a string that SQLite understands"""
+    to grow too big. 'age' must be a string like '2 days' or '48 hours'."""
     if not cursor:
         raise SystemExit('Database connection lost before pruning prices!')
+    
+    # Simple validation to prevent SQL injection
+    # Ensure age consists only of alphanumeric characters and spaces
+    if not all(c.isalnum() or c.isspace() for c in age):
+         print(f"Invalid age format: '{age}'. skipping pruning.")
+         return
+
     try:
-        cursor.execute("SELECT COUNT(*) FROM prices "
-            "WHERE valid_from < datetime('now', '-" + age + "')")
+        # Parameter substitution for the interval value is not directly supported in the datetime function's modifier string 
+        # in the same way as values. However, since we validated 'age' to be safe chars only, it's safer.
+        # Ideally, we would construct the string safely.
+        
+        query_count = f"SELECT COUNT(*) FROM prices WHERE valid_from < datetime('now', '-{age}')"
+        cursor.execute(query_count)
         selected_rows = cursor.fetchall()
         num_old_rows = selected_rows[0][0]
-        # I don't know why this doesn't just return an int rather than a list of a list of an int
+        
         if num_old_rows > 0:
-            cursor.execute("DELETE FROM prices WHERE valid_from < datetime('now', '-" + age + "')")
+            query_delete = f"DELETE FROM prices WHERE valid_from < datetime('now', '-{age}')"
+            cursor.execute(query_delete)
             print(str(num_old_rows) + ' unneeded prices from the past were deleted.')
         else:
             print('There were no old prices to delete.')

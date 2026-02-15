@@ -474,7 +474,7 @@ else: #high res display
 	if (next_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.(0,0,255), font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	# NEXT
 	message = "3:" + "{0:.1f}".format(nextp1_price) + "p"
@@ -486,7 +486,7 @@ else: #high res display
 	if (nextp1_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.(0,0,255), font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	# NEXT
 	message = "4:" + "{0:.1f}".format(nextp2_price) + "p"
@@ -498,7 +498,7 @@ else: #high res display
 	if (nextp2_price > 14.8):
 		draw.text((x,y), message, inky_display.RED, font)
 	else:
-		draw.text((x, y), message, inky_display.(0,0,255), font)
+		draw.text((x, y), message, inky_display.BLUE, font)
 
 	pixels_per_h = 8  # how many pixels 1p is worth
 	pixels_per_w = 8  # how many pixels 1/2 hour is worth
@@ -544,7 +544,7 @@ else: #high res display
 	minterval = (round(prices.index(lowest_price_next_24h)/2))
 	print ("minterval:"+str(minterval))
 	msg = "in:"+str(minterval)+"hrs"
-	draw.text((right_column,350), msg, inky_display.BLUE,BLUE font)
+	draw.text((right_column,350), msg, inky_display.BLUE, font)
 
 	# and convert that to an actual time
 	# note that this next time will not give you an exact half hour if you don't run this at an exact half hour eg cron
